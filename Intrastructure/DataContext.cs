@@ -4,12 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Intrastructure
+namespace Infrastructure
 {
-    class DataContext : DbContext
+    public class DataContext :DbContext
     {
         public DataContext(DbContextOptions<DataContext> options)
-            : base(options)
+              : base(options)
         {
 
         }
@@ -18,8 +18,8 @@ namespace Intrastructure
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Owner>().Property(x => x.Id).HasDefaultValue("NEWID()");
-            modelBuilder.Entity<PortfolioItem>().Property(x => x.Id).HasDefaultValue("NEWID()");
+            modelBuilder.Entity<Owner>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
+            modelBuilder.Entity<PortfolioItem>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
 
             modelBuilder.Entity<Owner>().HasData(
                 new Owner()
@@ -37,3 +37,4 @@ namespace Intrastructure
         public DbSet<PortfolioItem> PortfolioItems { get; set; }
     }
 }
+
